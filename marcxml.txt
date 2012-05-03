@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+   <record>
+      <controlfield tag='001'>167431</controlfield>
+      <datafield tag='037'><subfield code='z'>s004mc</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>190151</controlfield>
+      <datafield tag='037'><subfield code='z'>s004:desig=4</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004:desig=6</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>182452</controlfield>
+      <datafield tag='037'><subfield code='z'>s004:desig=3</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s056mr</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>191371</controlfield>
+      <datafield tag='037'><subfield code='z'>s004xid</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s056mr</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>199410</controlfield>
+      <datafield tag='037'><subfield code='z'>s004dt</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004t</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>199269</controlfield>
+      <datafield tag='037'><subfield code='z'>s004:desig=5</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>15554</controlfield>
+      <datafield tag='037'><subfield code='z'>s004:desig=5</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>201137</controlfield>
+      <datafield tag='037'><subfield code='z'>s004etb</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>202187</controlfield>
+      <datafield tag='037'><subfield code='z'>s004t</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>214179</controlfield>
+      <datafield tag='037'><subfield code='z'>s004:desig=5</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004:desig=7</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>214437</controlfield>
+      <datafield tag='037'><subfield code='z'>s004rg</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>215712</controlfield>
+      <datafield tag='037'><subfield code='z'>s004pl</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004xpp</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>17069</controlfield>
+      <datafield tag='037'><subfield code='z'>s004al</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004alp</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004bt</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004btp</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004eta</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004pt1</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004pt2</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004sa</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004sap</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004sbp</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004sc</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s004scp</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>212910</controlfield>
+      <datafield tag='037'><subfield code='z'>s004xid</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s056mr</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>122309</controlfield>
+      <datafield tag='037'><subfield code='z'>s035:desig=285</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=62</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=259</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=260</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=263</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=216</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=5</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=240</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=117</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=58</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=119</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=8</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=118</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=113</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=247</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=214</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=204</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=109</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=194</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>190035</controlfield>
+      <datafield tag='037'><subfield code='z'>s077pro</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s077u1c</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>213362</controlfield>
+      <datafield tag='037'><subfield code='z'>s035:desig=20</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=3</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=4</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>212768</controlfield>
+      <datafield tag='037'><subfield code='z'>s035:desig=5</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=285</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=109</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=6</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=62</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=260</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=119</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>129733</controlfield>
+      <datafield tag='037'><subfield code='z'>s035m</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=2</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=285</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=62</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=259</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=260</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=263</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=216</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=5</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=240</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=117</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=58</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=119</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=8</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=118</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=113</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=247</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=214</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=204</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=109</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=194</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>129146</controlfield>
+      <datafield tag='037'><subfield code='z'>s035:desig=285</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=62</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=259</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=260</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=263</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=216</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=5</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=240</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=117</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=58</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=119</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=8</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=118</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=113</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=247</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=214</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=204</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=109</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=194</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>140000</controlfield>
+      <datafield tag='037'><subfield code='z'>s035rhe</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>152593</controlfield>
+      <datafield tag='037'><subfield code='z'>s035:desig=285</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=62</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=259</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=260</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=263</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=216</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=5</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=240</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=117</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=58</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=119</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=8</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=118</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=113</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=247</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=214</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=204</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=109</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=194</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>159811</controlfield>
+      <datafield tag='037'><subfield code='z'>m070m</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>m071dm</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>m071m</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>164302</controlfield>
+      <datafield tag='037'><subfield code='z'>s025ms</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=1</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>154431</controlfield>
+      <datafield tag='037'><subfield code='z'>s035:desig=22</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=21</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>177224</controlfield>
+      <datafield tag='037'><subfield code='z'>s035:desig=20</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=3</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s035:desig=4</subfield></datafield>
+      <datafield tag='037'><subfield code='z'>s044z0t</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>167857</controlfield>
+      <datafield tag='037'><subfield code='z'>s035:desig=12</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>176792</controlfield>
+      <datafield tag='037'><subfield code='z'>s035:desig=7</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>167858</controlfield>
+      <datafield tag='037'><subfield code='z'>s035t</subfield></datafield>
+   </record>
+   <record>
+      <controlfield tag='001'>91800</controlfield>
+      <datafield tag='037'><subfield code='z'>s035:desig=7</subfield></datafield>
+   </record>
+</collection>
+</xml>

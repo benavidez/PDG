@@ -1,0 +1,14 @@
+#MISSING ON FIRST TRY
+PHRVA,25D,1174,s004mc
+PHLTA,122B,465,s004:desig=3,s056mr
+PHLTA,137B,135,s004dt,s004t
+PHLTA,140B,299,s004:desig=5
+PHLTA,150B,242,s004pl,s004xpp
+PHLTA,160B,343,s004al,s004alp,s004bt,s004btp,s004eta,s004pt1,s004pt2,s004sa,s004sap,s004sbp,s004sc,s004scp
+PHLTA,73B,109,s035:desig=285,s035:desig=62,s035:desig=259,s035:desig=260,s035:desig=263,s035:desig=216,s035:desig=5,s035:desig=240,s035:desig=117,s035:desig=58,s035:desig=119,s035:desig=8,s035:desig=118,s035:desig=113,s035:desig=247,s035:desig=214,s035:desig=204,s035:desig=109,s035:desig=194
+PHLTA,128B,361,s077pro,s077u1c
+PHLTA,92B,199,s035:desig=285,s035:desig=62,s035:desig=259,s035:desig=260,s035:desig=263,s035:desig=216,s035:desig=5,s035:desig=240,s035:desig=117,s035:desig=58,s035:desig=119,s035:desig=8,s035:desig=118,s035:desig=113,s035:desig=247,s035:desig=214,s035:desig=204,s035:desig=109,s035:desig=194
+PHLTA,96B,214,m070m,m071dm,m071m
+PHLTA,99B,489,s025ms,s035:desig=1
+PHLTA,114B,282,s035:desig=20,s035:desig=3,s035:desig=4,s044z0t
+PHLTA,109B,119,s035:desig=12
