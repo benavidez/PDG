@@ -1,7 +1,6 @@
 import csv
 import random
 import time
-import sys
 import urllib
 import urllib2
 import simplejson as json
@@ -43,8 +42,9 @@ def move_around_letters(journal,volume,pages):
         yield journal,volume,pages+letter
 
     letters = list('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
-    letter = ''
-    hits = []
+    letter  = ''
+    hits    = []
+    
     if volume[0] in letters:
         letter = volume[0]
         volume = volume[1:]
@@ -59,12 +59,11 @@ def move_around_letters(journal,volume,pages):
         pages = pages[:-1]
         
     if letter != '':
-        for j,v,p in permutations(journal,volume,pages,letter):
-            # print 'j,v,p: ' + j + ' ' + v + ' ' + p
-            #  hits = list(search(p='find j ' + ','.join([j,v,p])))
+        for j,v,p in permutations(journal,volume,pages,letter):           
             hits = get_inspire_id(j,v,p)
             if len(hits) > 0:
                 return hits
+            
     return hits
         
 
@@ -73,26 +72,19 @@ def get_inspire_id(journal,volume,pages):
       Does a search in inspirehep.net
       Returns a list of one or more ids that match with journal, volume, and pages
     """
-    search_str = 'find j ' + ','.join([journal,volume,pages])
-    invenio_url = 'http://inspirehep.net/search?'
-    data = {}        
-    data['p'] = search_str
-    data['of'] = 'id'
-              
-    url_value = urllib.urlencode(data) 
-    full_url = invenio_url + url_value
-       
-    #print full_url    
-    # full_url = 'http://inspirehep.net/search?ln=en&p=find+j+PRLTA&of=id'  
-    return_id = urllib2.urlopen(full_url)
-    hits =  return_id.read()
+    
+    search_str   = 'find j ' + ','.join([journal,volume,pages])
+    invenio_url  = 'http://inspirehep.net/search?'
+    data         = {}        
+    data['p']    = search_str
+    data['of']   = 'id'              
+    url_value    = urllib.urlencode(data) 
+    full_url     = invenio_url + url_value        
+    return_id    = urllib2.urlopen(full_url)
+    hits         = return_id.read()
     
     #convert to list
-    hits_list = json.loads(hits)
-    #if hits_list == 0:
-        #try again by moving the volume letter
-        #  hits_list = move_around_letters(journal,volume,pages)
-    #print str(hits_list[0]) + ' c=' + str(len(hits_list))
+    hits_list    = json.loads(hits)   
 
     return hits_list
     
@@ -126,29 +118,20 @@ def get_ref_hits_codes(line):
   
 def main():
 
-    # TODO read file from URL
-    
     # read data from file, parsing w/ csv
-    pdg_list = csv.reader(open('pdg_sm.csv', 'rb'), delimiter=',', quotechar='"', skipinitialspace=True)
-    
-    # TODO de-reference INSPIRE refs as we read them in
-    
-        
-    # TODO turn refs in file into marcxml
-    
-    recs_found = 0
-    recs_missing = 0
+    pdg_list        = csv.reader(open('pdg_sm.csv', 'rb'), delimiter=',', quotechar='"', skipinitialspace=True)    
+    recs_found      = 0
+    recs_missing    = 0
     recs_duplicates = 0
     recs_volume_mix = 0
-    recs_total = 0
+    recs_total      = 0
+    DEBUGCOUNT      = 0   
+    marc_xml        = open('marcxml.txt', 'wb')
+    errmissingfile  = open('missing.txt', 'wb')      
+    xml_str         = '<?xml version="1.0" encoding="UTF-8"?>\n' + '<collection xmlns="http://www.loc.gov/MARC21/slim">\n'    
+    missing_str     = '#MISSING ON FIRST TRY\n'
     
-    DEBUGCOUNT = 0   
-    marc_xml = open('marcxml.txt', 'wb')
-    errmissingfile = open('missing.txt', 'wb')  
-    print 'processing codeList...'
-    
-    xml_str = '<?xml version="1.0" encoding="UTF-8"?>\n' + '<collection xmlns="http://www.loc.gov/MARC21/slim">\n'    
-    missing_str = '#MISSING ON FIRST TRY\n'
+    print 'processing codeList...'    
     for pdg_line in pdg_list:
         hits = None
         DEBUGCOUNT += 1
@@ -184,38 +167,23 @@ def main():
                 xml_str = xml_str + '      <datafield tag=\'037\'><subfield code=\'z\'>' + code + '</subfield></datafield>\n'
             xml_str = xml_str + '   </record>\n'
             recs_found = recs_found + 1
-        
-        
     
-         
-            
-        
-            
     
     xml_str = xml_str + '</collection>\n</xml>'
     marc_xml.write(xml_str)
-    errmissingfile.write(missing_str)
-            
-    
-    #outfile = open('output.txt', 'wb')
-    #errambfile = open('errors_amb.txt', 'wb')
-  
-    
-    #outfile.close()
-    #errambfile.close()
-    errmissingfile.close()
     marc_xml.close()
-    print 'done\n'
+    
+    errmissingfile.write(missing_str)    
+    errmissingfile.close()
+    
+    print 'done processing. \n'
     print 'Found: ' + str(recs_found) + '\n'
     print 'Missing: ' + str(recs_missing) + '\n'
-    print 'Vol permu: ' + str(recs_volume_mix) + '\n'    
+    print 'Vol Manipulation: ' + str(recs_volume_mix) + '\n'    
     print 'Duplicates: ' + str(recs_duplicates) + '\n'    
     print 'Total: ' + str(recs_total) + '\n'    
+    
     # TODO output marcxml for bibupload (update not replace)
-
-
-
-
 
 
 
