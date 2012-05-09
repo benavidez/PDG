@@ -7,7 +7,8 @@ import simplejson as json
 #from invenio.search_engine import perform_request_search as search
 
 """
-   Reads the pdg_codes file to produce a marcxml file. 
+   Read the pdg_codes file to produce a marcxml file. 
+   
    Each record is verified that it exists on INSPIRE (find j PRLTA,54,2489), 
    and the record id is used in the marcxml file. 
    
@@ -24,7 +25,8 @@ import simplejson as json
 
 
 def move_around_letters(journal,volume,pages):
-    """Move around the letter attached of a volume or page ref seeking unique
+    """
+    Move around the letter attached of a volume or page ref seeking unique
 
     Sometimes volume letters for a coden reference get put in the wrong place:
     they're on the page when they should be on the volume, or they're at the
@@ -69,28 +71,23 @@ def move_around_letters(journal,volume,pages):
 
 def get_inspire_id(journal,volume,pages):
     """
-      Does a search in inspirehep.net
-      Returns a list of one or more ids that match with journal, volume, and pages
+      Search in inspirehep.net for record id
+      
+      Return a list of one or more ids that match with journal, volume, and pages
     """
     
     search_str   = 'find j ' + ','.join([journal,volume,pages])
     invenio_url  = 'http://inspirehep.net/search?'
-    data         = {}        
-    data['p']    = search_str
-    data['of']   = 'id'              
-    url_value    = urllib.urlencode(data) 
-    full_url     = invenio_url + url_value        
-    return_id    = urllib2.urlopen(full_url)
-    hits         = return_id.read()
+    data = {'p': search_str, 'of': 'id'}
+    hits_handle = urllib2.urlopen(invenio_url + urllib.urlencode(data))
+    hits = json.loads(hits_handle.read())
     
-    #convert to list
-    hits_list    = json.loads(hits)   
-
-    return hits_list
+    return hits
     
     
 def get_ref_hits_codes(line):
-    """Return a search, its result set, and the set of PDG codes to attach
+    """
+    Return a search, its result set, and the set of PDG codes to attach
 
     Returns a tuple consisting of
     * hits - the set of records responsive to the reference search
@@ -165,7 +162,9 @@ def main():
             xml_str = xml_str + '   <record>\n      <controlfield tag=\'001\'>' + str(hits[0]) + '</controlfield>'
 
             for code in codes:
-                xml_str = xml_str + '\n      <datafield tag=\'084\'>' + '\n         <subfield code=\'a\'>' + code + '</subfield>' + '\n         <subfield code=\'2\'>PDG</subfield>\n         <subfield code=\'9\'>PDG</subfield>\n      </datafield>'
+                xml_str = xml_str + '\n      <datafield tag=\'084\'>' + '\n         <subfield code=\'a\'>' + code + \
+                                    '</subfield>' + '\n         <subfield code=\'2\'>PDG</subfield>' + \
+                                    '\n         <subfield code=\'9\'>PDG</subfield>\n      </datafield>'
             xml_str = xml_str + '\n   </record>\n'
             recs_found = recs_found + 1
     
@@ -183,10 +182,7 @@ def main():
     print 'Vol Manipulation: ' + str(recs_volume_mix) + '\n'    
     print 'Duplicates: ' + str(recs_duplicates) + '\n'    
     print 'Total: ' + str(recs_total) + '\n'    
-    
-    # TODO output marcxml for bibupload (update not replace)
-
-
+        
 
 
 if __name__ == '__main__':
