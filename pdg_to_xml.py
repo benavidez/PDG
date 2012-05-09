@@ -127,9 +127,9 @@ def main():
     recs_total      = 0
     DEBUGCOUNT      = 0   
     marc_xml        = open('marcxml.txt', 'wb')
-    errmissingfile  = open('missing.txt', 'wb')      
+    errmissingfile  = open('needed_a_massage.txt', 'wb')      
     xml_str         = '<?xml version="1.0" encoding="UTF-8"?>\n' + '<collection xmlns="http://www.loc.gov/MARC21/slim">\n'    
-    missing_str     = '#MISSING ON FIRST TRY\n'
+    missing_str     = '#MISSING ON FIRST TRY, SO HAD TO MOVE VOL LETTER\n'
     
     print 'processing codeList...'    
     for pdg_line in pdg_list:
@@ -145,12 +145,12 @@ def main():
         if journal != None: recs_total = recs_total + 1
         hits_len = len(hits)
         if hits_len < 1:                                  
-            #Missing, so try again      
+            #Missing, so try again
             missing_str =  missing_str + journal + ',' + volume + ',' + pages + ',' + ','.join(codes) + '\n'      
             recs_volume_mix = recs_volume_mix + 1
             hits = move_around_letters(journal,volume,pages)
             hits_len = len(hits) 
-            print 'hits_len:' + str(hits_len) + 'content: ' + str(hits[0])
+            print 'hits_len:' + str(hits_len) + '\n content: ' + str(hits[0])
             if hits_len < 1:
                 print 'Missing:' + journal + ', ' + volume + ', ' + pages
                 missing_str =  missing_str + journal + ',' + volume + ',' + pages + ',' + ','.join(codes) + '\n'
@@ -162,10 +162,11 @@ def main():
         
         if hits_len == 1:
             print 'ok:' + str(hits[0])
-            xml_str = xml_str + '   <record>\n      <controlfield tag=\'001\'>' + str(hits[0]) + '</controlfield>\n'
+            xml_str = xml_str + '   <record>\n      <controlfield tag=\'001\'>' + str(hits[0]) + '</controlfield>'
+
             for code in codes:
-                xml_str = xml_str + '      <datafield tag=\'037\'><subfield code=\'z\'>' + code + '</subfield></datafield>\n'
-            xml_str = xml_str + '   </record>\n'
+                xml_str = xml_str + '\n      <datafield tag=\'084\'>' + '\n         <subfield code=\'a\'>' + code + '</subfield>' + '\n         <subfield code=\'2\'>PDG</subfield>\n         <subfield code=\'9\'>PDG</subfield>\n      </datafield>'
+            xml_str = xml_str + '\n   </record>\n'
             recs_found = recs_found + 1
     
     
