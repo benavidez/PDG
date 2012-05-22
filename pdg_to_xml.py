@@ -32,8 +32,10 @@ To:
 """
 #************ GLOBALS ********************
 #INSPIRE_URL = 'http://inspirehep.net/search?'
-INSPIRE_URL = 'http://inspireheptest.cern.ch/search?'
-PDG_FILE    = 'pdg_sm.csv'
+INSPIRE_URL  = 'http://inspireheptest.cern.ch/search?'
+#PDG_FILE     = 'pdg_sm.csv'
+PDG_FILE     = 'pdg_codes.csv'
+SLEEP_NUMBER = 2
   
 def parse_fields(row):   
     """
@@ -72,7 +74,23 @@ def get_search_url(journal, volume, pages):
         
     return INSPIRE_URL + urllib.urlencode({'p': search_str, 'of': 'id'})
 #-----------------------------------------------------------------------------    
-              
+    
+def get_hits(journal, volume, pages):
+    """
+    repetitive code, so putting it in a function
+    
+    """
+        
+    search_url = get_search_url(journal, volume, pages)
+    print 'search_url ' + search_url    
+    hits_handle = urllib2.urlopen(search_url)
+    hits = json.loads(hits_handle.read())
+    
+    return hits
+#-----------------------------------------------------------------------------        
+    
+    
+    
 def get_inspire_id(journal, volume, pages):
     """
     Search in inspirehep.net for record id(s)  based on journal, volume and pages
@@ -89,18 +107,21 @@ def get_inspire_id(journal, volume, pages):
         yield letter+volume
         yield volume+letter
         
-
-    search_url = get_search_url(journal, volume, pages)
-    #print search_url
-    
-    #try without manipulation
-    hits_handle = urllib2.urlopen(search_url)
-    hits = json.loads(hits_handle.read())
-    
+    hits = get_hits(journal, volume, pages)    
     if len(hits) == 0:
         #try volume permutations
-        manipulate = True            
-        if volume:
+        manipulate = True
+        #if still no hit found, check for PHRVA and NUPHA.if found, remove letter from page
+        #print '**' + str(len(hits)) + '<<' + journal + ' ' + pages
+        if len(hits) < 1 and (journal == 'PHRVA' or journal == 'NUPHA'):
+            if pages[0] in letters:
+                pages = pages[1:]
+            elif pages[-1] in letters:
+                pages = pages[:-1]
+            #print '\n' + str(len(hits)) + '<<' + journal + ' ' + pages
+            hits = get_hits(journal, volume, pages)
+ 
+        if len(hits) < 1 and volume:
             if volume[0] in letters:
                 letter = volume[0]
                 volume = volume[1:]
@@ -109,12 +130,19 @@ def get_inspire_id(journal, volume, pages):
                 volume = volume[:-1]
             
             if letter != '':
-                for vol in permutations(volume,letter):
-                    search_url = get_search_url(journal, vol, pages)                      
-                    hits_handle = urllib2.urlopen(search_url)
-                    hits = json.loads(hits_handle.read())
+                for vol in permutations(volume,letter):                    
+                    hits = get_hits(journal, vol, pages)
                     if len(hits) > 0:
-                        break       
+                        break
+            else:
+                #no letter was found in volume
+                if journal == 'JPHGB':
+                    vol = 'G' + volume
+                elif journal == 'JPAGB':
+                    vol = 'A' + volume  
+                else: 
+                    vol = volume                                                  
+                hits = get_hits(journal, vol, pages)
             
     return hits,manipulate
 #-----------------------------------------------------------------------------    
@@ -168,9 +196,10 @@ def main():
         #if journal is blank, it's probably a comment
         if journal:                        
             DEBUGCOUNT += 1
-            if DEBUGCOUNT % 10 == 0:
+            if DEBUGCOUNT % SLEEP_NUMBER == 0:
                 print str(DEBUGCOUNT) + "records processed. Sleeping..."
-                time.sleep(random.randint(1, 9))
+                #time.sleep(random.randint(1, 9))
+                time.sleep(5)
             current_row =  current_row + journal + ',' + volume + ',' + pages + ',' + ','.join(codes) + '\n'
             print current_row        
             hits, manipulate = get_inspire_id(journal, volume, pages)           
