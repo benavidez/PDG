@@ -77,6 +77,9 @@ def get_search_url(journal, volume, pages):
     
 def get_hits(journal, volume, pages):
     """
+    prepare the search url bases on parameters and execute search
+        
+    Return hit list or empty list if no record was found
     repetitive code, so putting it in a function
     
     """
@@ -95,6 +98,9 @@ def get_inspire_id(journal, volume, pages):
     """
     Search in inspirehep.net for record id(s)  based on journal, volume and pages
        
+    When records are not found initially, the script manipulates the volume 
+    and/or pages based on the type of journal. This increases the hit rate.
+    
     Return record id list (empty list of none found) and the manipulate flag 
     to notify if volume letter was in an unexpected place. 
     """
@@ -109,18 +115,17 @@ def get_inspire_id(journal, volume, pages):
         
     hits = get_hits(journal, volume, pages)    
     if len(hits) == 0:
-        #try volume permutations
+        #try volume and pages permutations
         manipulate = True
-        #if still no hit found, check for PHRVA and NUPHA.if found, remove letter from page
-        #print '**' + str(len(hits)) + '<<' + journal + ' ' + pages
+        #if no hit found, check for PHRVA and NUPHA.if found, remove letter from page        
         if len(hits) < 1 and (journal == 'PHRVA' or journal == 'NUPHA'):
             if pages[0] in letters:
                 pages = pages[1:]
             elif pages[-1] in letters:
                 pages = pages[:-1]
-            #print '\n' + str(len(hits)) + '<<' + journal + ' ' + pages
+            
             hits = get_hits(journal, volume, pages)
- 
+        #moving the volume letter
         if len(hits) < 1 and volume:
             if volume[0] in letters:
                 letter = volume[0]
@@ -135,7 +140,7 @@ def get_inspire_id(journal, volume, pages):
                     if len(hits) > 0:
                         break
             else:
-                #no letter was found in volume
+                #no letter was found in volume, so check for JPHGB and JPAGB
                 if journal == 'JPHGB':
                     vol = 'G' + volume
                 elif journal == 'JPAGB':
