@@ -1,5 +1,5 @@
 import csv
-import random
+import re
 import time
 import urllib
 import urllib2
@@ -36,6 +36,7 @@ INSPIRE_URL  = 'http://inspireheptest.cern.ch/search?'
 #PDG_FILE     = 'pdg_sm.csv'
 PDG_FILE     = 'pdg_codes.csv'
 SLEEP_NUMBER = 2
+MANUALLY_FOUND = 'manually_found_recids.txt'
   
 def parse_fields(row):   
     """
@@ -93,6 +94,39 @@ def get_hits(journal, volume, pages):
 #-----------------------------------------------------------------------------        
     
     
+def try_special_cases(journal, volume, pages):
+   
+    #if record found, return
+    v = volume
+    p = pages
+    
+    if journal == 'JPBAB': 
+        v = 'B' + volume
+    elif journal == 'NUPHZ':
+        if volume[0] == 'B':
+            v = volume[1:]
+    elif journal == 'PRLTA':
+        if pages[0] == 'A':
+            p = pages[1:]
+        elif pages[-1] == 'A':
+            p = pages[:-1]
+    elif journal == 'PRPLC':
+        if volume[0] == 'C':
+            v = volume[1:]
+        elif volume[-1] == 'C':
+            v = volume[:-1]
+    elif journal == 'PHRVA':
+        if volume[0] == 'B':
+            p = 'B' + pages
+            v = volume[1:]
+        elif volume[-1] == 'B':
+            p = 'B' + pages
+            v = volume[:-1]
+    print 'in special cases: ' + journal + ' v:' + v + ' p: ' + p
+     
+    return get_hits(journal, v, p)    
+    
+    
     
 def get_inspire_id(journal, volume, pages):
     """
@@ -115,8 +149,13 @@ def get_inspire_id(journal, volume, pages):
         
     hits = get_hits(journal, volume, pages)    
     if len(hits) == 0:
+        
         #try volume and pages permutations
-        manipulate = True
+        manipulate = True        
+        
+        #try special cases
+        hits = try_special_cases(journal, volume, pages)
+        
         #if no hit found, check for PHRVA and NUPHA.if found, remove letter from page        
         if len(hits) < 1 and (journal == 'PHRVA' or journal == 'NUPHA'):
             if pages[0] in letters:
@@ -148,6 +187,7 @@ def get_inspire_id(journal, volume, pages):
                 else: 
                     vol = volume                                                  
                 hits = get_hits(journal, vol, pages)
+          
             
     return hits,manipulate
 #-----------------------------------------------------------------------------    
@@ -180,19 +220,38 @@ def write_to_file(file_name, save_str):
     fh.close()
         
 #-----------------------------------------------------------------------------
-             
+        
+def get_manually_found(journal, volume, pages, manually_found_lines):           
+    hits = []
+    for line in manually_found_lines:
+        match = re.search(r'(.+)(recid:\s*)(\d*)', line)        
+        if match:                      
+            recid =  match.group(3)     
+            row = match.group(1).split(',')      
+            j, v, p, c = parse_fields(row)
+            print 'in get_manually_found '  + j + ' ' + v + ' ' + p
+            if j == journal and v == volume and p == pages:
+                hits.append(recid)           
+                 
+    return hits
+      
                 
 def main():           
     #Initialize    
     DEBUGCOUNT   = 0 
     hits         = []
     manipulate   = False 
-    duplicates   = found = not_found = manipulate_count = 0
+    duplicates   = found = not_found = manipulate_count = manually_found_count = 0
     xml_str      = '<?xml version="1.0" encoding="UTF-8"?>\n' + '<collection xmlns="http://www.loc.gov/MARC21/slim">\n'  
     manipulated_str = not_found_str = dups_str = '' #to save to a file
     
     print 'processing PDGs...'
     pdg_reader   = csv.reader(open(PDG_FILE, 'rb'), delimiter=',', quotechar='"', skipinitialspace=True)
+    
+    #read manually found file
+    f = open(MANUALLY_FOUND)
+    manually_found_lines = f.readlines()
+    f.close()
     
     #main loop        
     for row_str_list in pdg_reader:                          
@@ -206,8 +265,15 @@ def main():
                 #time.sleep(random.randint(1, 9))
                 time.sleep(5)
             current_row =  current_row + journal + ',' + volume + ',' + pages + ',' + ','.join(codes) + '\n'
-            print current_row        
-            hits, manipulate = get_inspire_id(journal, volume, pages)           
+            print current_row     
+                        
+            #first, try manually found
+            hits = get_manually_found(journal, volume, pages, manually_found_lines)
+            if len(hits) > 0:
+                manually_found_count += 1
+            else:                   
+                hits, manipulate = get_inspire_id(journal, volume, pages)                             
+            
             hits_len = len(hits)
                         
             if hits_len > 0:
@@ -239,6 +305,7 @@ def main():
     print 'Not Found: ' + str(not_found)
     print 'Duplicates: ' + str(duplicates)     
     print 'Manipulated: ' + str(manipulate_count)
+    print 'Manually Found: ' + str(manually_found_count) 
     print 'Total: ' + str(DEBUGCOUNT) + '\n'
     print 'done'
 
