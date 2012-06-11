@@ -3,6 +3,7 @@ import re
 import time
 import urllib
 import urllib2
+import sys
 import simplejson as json
 
 """
@@ -31,10 +32,10 @@ To:
  </record>
 """
 #************ GLOBALS ********************
-#INSPIRE_URL = 'http://inspirehep.net/search?'
-INSPIRE_URL  = 'http://inspireheptest.cern.ch/search?'
-#PDG_FILE     = 'pdg_sm.csv'
-PDG_FILE     = 'pdg_codes.csv'
+INSPIRE_URL = 'http://inspirehep.net/search?'
+#INSPIRE_URL  = 'http://inspireheptest.cern.ch/search?'
+PDG_FILE     = 'pdg_test.csv'
+#PDG_FILE     = 'PDGIdentifiers-references-2012v0.txt'
 SLEEP_NUMBER = 2
 MANUALLY_FOUND = 'manually_found_recids.txt'
   
@@ -223,7 +224,7 @@ def write_to_file(file_name, save_str):
         
 def get_manually_found(journal, volume, pages, manually_found_lines):           
     hits = []
-    for line in manually_found_lines:
+    for line in manually_found_lines:        
         match = re.search(r'(.+)(recid:\s*)(\d*)', line)        
         if match:                      
             recid =  match.group(3)     
@@ -239,22 +240,30 @@ def get_manually_found(journal, volume, pages, manually_found_lines):
 def main():           
     #Initialize    
     DEBUGCOUNT   = 0 
-    hits         = []
+    hits         = manually_found_lines = []
     manipulate   = False 
     duplicates   = found = not_found = manipulate_count = manually_found_count = 0
     xml_str      = '<?xml version="1.0" encoding="UTF-8"?>\n' + '<collection xmlns="http://www.loc.gov/MARC21/slim">\n'  
     manipulated_str = not_found_str = dups_str = '' #to save to a file
     
     print 'processing PDGs...'
-    pdg_reader   = csv.reader(open(PDG_FILE, 'rb'), delimiter=',', quotechar='"', skipinitialspace=True)
+    try:
+        pdg_reader   = csv.reader(open(PDG_FILE, 'rb'), delimiter=',', quotechar='"', skipinitialspace=True)
+    except:
+        print 'Failed to open:' + PDG_FILE
+        sys.exit()
     
     #read manually found file
-    f = open(MANUALLY_FOUND)
-    manually_found_lines = f.readlines()
-    f.close()
-    
+    try:
+        f = open(MANUALLY_FOUND)
+        manually_found_lines = f.readlines()
+        f.close()
+    except:    
+        print 'Failed to open:Manually_found file.'
+        
     #main loop        
-    for row_str_list in pdg_reader:                          
+    for row_str_list in pdg_reader:            
+        hits = []              
         journal, volume, pages, codes = parse_fields(row_str_list)
         current_row  = ''            
         #if journal is blank, it's probably a comment
@@ -265,11 +274,14 @@ def main():
                 #time.sleep(random.randint(1, 9))
                 time.sleep(5)
             current_row =  current_row + journal + ',' + volume + ',' + pages + ',' + ','.join(codes) + '\n'
-            print current_row     
+            print '*' + current_row     
                         
             #first, try manually found
-            hits = get_manually_found(journal, volume, pages, manually_found_lines)
+            if len(manually_found_lines) > 0:               
+                hits = get_manually_found(journal, volume, pages, manually_found_lines)                
+                
             if len(hits) > 0:
+                print 'manually_found_cound:' + str(manually_found_count) + ' hits[0]: ' + str(hits[0])
                 manually_found_count += 1
             else:                   
                 hits, manipulate = get_inspire_id(journal, volume, pages)                             
@@ -281,7 +293,7 @@ def main():
                     duplicates +=1    
                     dups_str = dups_str + current_row            
                 else:
-                    #** one found ***
+                    #** one found ***                    
                     found += 1                        
                     xml_str = xml_str + get_marc_record(str(hits[0]), codes)          
             else:
